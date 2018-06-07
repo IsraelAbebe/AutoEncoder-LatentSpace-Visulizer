@@ -26,7 +26,7 @@ class CGAN():
 
         # Build and compile the discriminator
         self.discriminator = self.build_discriminator()
-        self.discriminator.compile(loss=['binary_crossentropy'],
+        self.discriminator.compile(loss=['categorical_crossentropy'],
             optimizer=optimizer,
             metrics=['accuracy'])
 
@@ -49,7 +49,7 @@ class CGAN():
         # The combined model  (stacked generator and discriminator)
         # Trains generator to fool discriminator
         self.combined = Model([noise, label], valid)
-        self.combined.compile(loss=['binary_crossentropy'],
+        self.combined.compile(loss=['categorical_crossentropy'],
             optimizer=optimizer)
 
     def build_generator(self):
@@ -204,7 +204,7 @@ class CGAN():
         
     def generate_a(self,index,value=0,number=0):
         generator = self.build_generator()
-        generator.compile(loss='binary_crossentropy', optimizer="SGD")
+        generator.compile(loss='categorical_crossentropy', optimizer="SGD")
         generator.load_weights('generator_weights')
         
         
